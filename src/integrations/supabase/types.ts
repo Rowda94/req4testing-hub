@@ -14,7 +14,262 @@ export type Database = {
   }
   public: {
     Tables: {
-      [_ in never]: never
+      profiles: {
+        Row: {
+          created_at: string
+          email: string
+          full_name: string | null
+          id: string
+          role: string
+          updated_at: string
+        }
+        Insert: {
+          created_at?: string
+          email: string
+          full_name?: string | null
+          id: string
+          role: string
+          updated_at?: string
+        }
+        Update: {
+          created_at?: string
+          email?: string
+          full_name?: string | null
+          id?: string
+          role?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      requirements: {
+        Row: {
+          created_at: string
+          created_by: string
+          description: string | null
+          id: string
+          priority: string
+          status: string
+          title: string
+          updated_at: string
+        }
+        Insert: {
+          created_at?: string
+          created_by: string
+          description?: string | null
+          id?: string
+          priority?: string
+          status?: string
+          title: string
+          updated_at?: string
+        }
+        Update: {
+          created_at?: string
+          created_by?: string
+          description?: string | null
+          id?: string
+          priority?: string
+          status?: string
+          title?: string
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "requirements_created_by_fkey"
+            columns: ["created_by"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      test_cases: {
+        Row: {
+          created_at: string
+          created_by: string
+          description: string | null
+          expected_result: string | null
+          id: string
+          priority: string
+          requirement_id: string
+          title: string
+          updated_at: string
+        }
+        Insert: {
+          created_at?: string
+          created_by: string
+          description?: string | null
+          expected_result?: string | null
+          id?: string
+          priority?: string
+          requirement_id: string
+          title: string
+          updated_at?: string
+        }
+        Update: {
+          created_at?: string
+          created_by?: string
+          description?: string | null
+          expected_result?: string | null
+          id?: string
+          priority?: string
+          requirement_id?: string
+          title?: string
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "test_cases_created_by_fkey"
+            columns: ["created_by"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "test_cases_requirement_id_fkey"
+            columns: ["requirement_id"]
+            isOneToOne: false
+            referencedRelation: "requirements"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      test_executions: {
+        Row: {
+          assigned_to: string | null
+          created_at: string
+          executed_at: string | null
+          id: string
+          result_notes: string | null
+          status: string
+          test_case_id: string
+          test_run_id: string
+          updated_at: string
+        }
+        Insert: {
+          assigned_to?: string | null
+          created_at?: string
+          executed_at?: string | null
+          id?: string
+          result_notes?: string | null
+          status?: string
+          test_case_id: string
+          test_run_id: string
+          updated_at?: string
+        }
+        Update: {
+          assigned_to?: string | null
+          created_at?: string
+          executed_at?: string | null
+          id?: string
+          result_notes?: string | null
+          status?: string
+          test_case_id?: string
+          test_run_id?: string
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "test_executions_assigned_to_fkey"
+            columns: ["assigned_to"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "test_executions_test_case_id_fkey"
+            columns: ["test_case_id"]
+            isOneToOne: false
+            referencedRelation: "test_cases"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "test_executions_test_run_id_fkey"
+            columns: ["test_run_id"]
+            isOneToOne: false
+            referencedRelation: "test_runs"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      test_runs: {
+        Row: {
+          created_at: string
+          created_by: string
+          description: string | null
+          end_date: string | null
+          id: string
+          start_date: string | null
+          status: string
+          title: string
+          updated_at: string
+        }
+        Insert: {
+          created_at?: string
+          created_by: string
+          description?: string | null
+          end_date?: string | null
+          id?: string
+          start_date?: string | null
+          status?: string
+          title: string
+          updated_at?: string
+        }
+        Update: {
+          created_at?: string
+          created_by?: string
+          description?: string | null
+          end_date?: string | null
+          id?: string
+          start_date?: string | null
+          status?: string
+          title?: string
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "test_runs_created_by_fkey"
+            columns: ["created_by"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      test_steps: {
+        Row: {
+          created_at: string
+          description: string
+          expected_result: string | null
+          id: string
+          step_number: number
+          test_case_id: string
+        }
+        Insert: {
+          created_at?: string
+          description: string
+          expected_result?: string | null
+          id?: string
+          step_number: number
+          test_case_id: string
+        }
+        Update: {
+          created_at?: string
+          description?: string
+          expected_result?: string | null
+          id?: string
+          step_number?: number
+          test_case_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "test_steps_test_case_id_fkey"
+            columns: ["test_case_id"]
+            isOneToOne: false
+            referencedRelation: "test_cases"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
     }
     Views: {
       [_ in never]: never
