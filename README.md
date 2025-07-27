@@ -1,73 +1,215 @@
-# Welcome to your Lovable project
+# Require4Testing - Test Management System
 
-## Project info
+Ein umfassendes Test-Management-System für Requirements Engineering, entwickelt mit React, TypeScript und Supabase.
 
-**URL**: https://lovable.dev/projects/8110383a-490b-41a2-a38b-aaf123d0b0d7
+## 📋 Übersicht
 
-## How can I edit this code?
+Require4Testing ist ein professionelles Test-Management-System, das speziell für Teams entwickelt wurde, die strukturiertes Requirements Engineering betreiben. Das System unterstützt den gesamten Lebenszyklus von der Anforderungsdefinition bis zur Testausführung.
 
-There are several ways of editing your application.
+## 🚀 Features
 
-**Use Lovable**
+### Authentifizierung und Benutzerrollen
+- **Sichere Anmeldung**: E-Mail/Passwort-basierte Authentifizierung
+- **Rollenbasierte Zugriffskontrolle**: Verschiedene Berechtigungsebenen
+- **Automatische Profilerstellung**: Bei der Registrierung wird automatisch ein Benutzerprofil erstellt
 
-Simply visit the [Lovable Project](https://lovable.dev/projects/8110383a-490b-41a2-a38b-aaf123d0b0d7) and start prompting.
+### Anforderungsmanagement
+- **Anforderungen erstellen und bearbeiten**: Vollständige CRUD-Operationen
+- **Status-Tracking**: Draft → Genehmigt → Implementiert → Getestet
+- **Prioritätsverwaltung**: Kritisch, Hoch, Mittel, Niedrig
+- **Such- und Filterfunktionen**: Schnelles Auffinden von Anforderungen
+- **Benutzer-Attribution**: Nachverfolgung wer welche Anforderung erstellt hat
 
-Changes made via Lovable will be committed automatically to this repo.
+### Dashboard
+- **Rollenspezifische Ansichten**: Angepasste Inhalte je nach Benutzerrolle
+- **Schnellstatistiken**: Übersicht über aktuelle Projekte und Aufgaben
+- **Schnellstart-Guide**: Hilfestellung für neue Benutzer
 
-**Use your preferred IDE**
+## 👥 Benutzerrollen
 
-If you want to work locally using your own IDE, you can clone this repo and push changes. Pushed changes will also be reflected in Lovable.
+### 1. Requirements Engineer
+**Berechtigung:**
+- Erstellen und verwalten von Anforderungen
+- Überwachen der Anforderungsqualität
+- Koordination mit Stakeholdern
 
-The only requirement is having Node.js & npm installed - [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating)
+**Zugriff auf:**
+- Dashboard, Anforderungen, Testfälle, Testläufe
 
-Follow these steps:
+### 2. Test Manager
+**Berechtigung:**
+- Erstellen und verwalten von Testläufen
+- Zuordnung von Testfällen zu Testern
+- Überwachen des Teststatus
+- Erstellen von Testfällen
 
-```sh
-# Step 1: Clone the repository using the project's Git URL.
-git clone <YOUR_GIT_URL>
+**Zugriff auf:**
+- Dashboard, Anforderungen, Testfälle, Testläufe
 
-# Step 2: Navigate to the project directory.
-cd <YOUR_PROJECT_NAME>
+### 3. Testfallersteller
+**Berechtigung:**
+- Erstellen von Testfällen zu Anforderungen
+- Definieren von Testschritten
+- Pflege der Testfallqualität
 
-# Step 3: Install the necessary dependencies.
-npm i
+**Zugriff auf:**
+- Dashboard, Anforderungen, Testfälle
 
-# Step 4: Start the development server with auto-reloading and an instant preview.
+### 4. Tester
+**Berechtigung:**
+- Ausführen zugewiesener Tests
+- Erfassen von Testergebnissen
+- Dokumentation von Fehlern
+
+**Zugriff auf:**
+- Dashboard, Testfälle, Testläufe, Meine Tests
+
+## 🛠 Technische Architektur
+
+### Frontend
+- **React 18**: Moderne React-Hooks und funktionale Komponenten
+- **TypeScript**: Vollständige Typisierung für bessere Entwicklererfahrung
+- **Tailwind CSS**: Utility-first CSS-Framework
+- **Radix UI**: Barrierefreie, komponentenbasierte UI-Bibliothek
+- **React Router**: Client-seitiges Routing
+- **React Query**: Effizientes State Management für Server-Daten
+
+### Backend
+- **Supabase**: Backend-as-a-Service Plattform
+- **PostgreSQL**: Robuste relationale Datenbank
+- **Row Level Security (RLS)**: Sicherheit auf Datenbankebene
+- **Realtime**: Live-Updates (vorbereitet für zukünftige Features)
+
+### Authentifizierung
+- **Supabase Auth**: Sichere JWT-basierte Authentifizierung
+- **Session Management**: Automatisches Token-Refresh
+- **E-Mail-Verifizierung**: Optionale E-Mail-Bestätigung
+
+## 📊 Datenbankschema
+
+### Tabellen
+
+#### `profiles`
+Erweiterte Benutzerinformationen jenseits der Standard-Auth-Tabelle.
+```sql
+- id (uuid, FK zu auth.users)
+- email (text)
+- full_name (text)
+- role (text) -- requirements_engineer, test_manager, test_case_creator, tester
+- created_at (timestamp)
+- updated_at (timestamp)
+```
+
+#### `requirements`
+Zentrale Tabelle für alle Testanforderungen.
+```sql
+- id (uuid, Primary Key)
+- title (text)
+- description (text, nullable)
+- status (text) -- draft, approved, implemented, tested
+- priority (text) -- low, medium, high, critical
+- created_by (uuid, FK zu profiles)
+- created_at (timestamp)
+- updated_at (timestamp)
+```
+
+## 🎯 Verwendung
+
+### Erste Schritte
+
+1. **Registrierung**: Erstellen Sie ein Konto und wählen Sie Ihre Rolle
+2. **Anforderungen erstellen** (Requirements Engineer): Beginnen Sie mit der Definition von Testanforderungen
+3. **Testfälle entwickeln** (Test Case Creator): Erstellen Sie Testfälle zu den Anforderungen
+4. **Testläufe planen** (Test Manager): Organisieren Sie Testausführungen
+5. **Tests durchführen** (Tester): Führen Sie zugewiesene Tests aus
+
+### Beispiel-Workflow
+
+1. **Requirements Engineer** erstellt eine neue Anforderung "Benutzer-Login-System"
+2. **Test Case Creator** entwickelt entsprechende Testfälle
+3. **Test Manager** erstellt einen Testlauf und weist Testfälle zu
+4. **Tester** führen die Tests aus und dokumentieren Ergebnisse
+
+### Navigation
+
+- **Dashboard**: Startseite mit rollenspezifischen Informationen
+- **Anforderungen**: Verwaltung aller Testanforderungen
+- **Testfälle**: Erstellung und Verwaltung von Testfällen
+- **Testläufe**: Organisation von Testausführungen
+- **Meine Tests**: Persönliche Testübersicht für Tester
+
+## 🔧 Entwicklung
+
+### Lokale Installation
+
+```bash
+# Repository klonen
+git clone [repository-url]
+cd require4testing
+
+# Dependencies installieren
+npm install
+
+# Entwicklungsserver starten
 npm run dev
 ```
 
-**Edit a file directly in GitHub**
+### Code-Struktur
 
-- Navigate to the desired file(s).
-- Click the "Edit" button (pencil icon) at the top right of the file view.
-- Make your changes and commit the changes.
+```
+src/
+├── components/          # Wiederverwendbare UI-Komponenten
+│   ├── ui/             # Basis-UI-Komponenten (shadcn/ui)
+│   └── Layout.tsx      # Hauptlayout mit Navigation
+├── hooks/              # Custom React Hooks
+│   ├── useAuth.tsx     # Authentifizierungs-Hook
+│   └── use-toast.ts    # Toast-Benachrichtigungen
+├── integrations/       # Externe Integrationen
+│   └── supabase/       # Supabase-Client und Typen
+├── lib/                # Utility-Funktionen
+├── pages/              # Hauptseiten der Anwendung
+│   ├── Auth.tsx        # Login/Registrierung
+│   ├── Index.tsx       # Dashboard
+│   ├── Requirements.tsx # Anforderungsmanagement
+│   └── NotFound.tsx    # 404-Seite
+└── main.tsx           # Anwendungseingang
+```
 
-**Use GitHub Codespaces**
+## 📝 Hinweise für Entwickler
 
-- Navigate to the main page of your repository.
-- Click on the "Code" button (green button) near the top right.
-- Select the "Codespaces" tab.
-- Click on "New codespace" to launch a new Codespace environment.
-- Edit files directly within the Codespace and commit and push your changes once you're done.
+### Neue Komponenten erstellen
+1. Verwenden Sie TypeScript für alle neuen Komponenten
+2. Implementieren Sie umfassende JSDoc-Kommentare
+3. Nutzen Sie die bestehenden UI-Komponenten aus dem `ui/`-Ordner
+4. Beachten Sie die Rollenbasierte Zugriffskontrolle
 
-## What technologies are used for this project?
+### Datenbankänderungen
+1. Verwenden Sie das Migrations-Tool für alle Schema-Änderungen
+2. Aktualisieren Sie entsprechende TypeScript-Typen
+3. Beachten Sie RLS-Richtlinien bei neuen Tabellen
+4. Testen Sie Änderungen mit verschiedenen Benutzerrollen
 
-This project is built with:
+### Testing
+- Unit-Tests für kritische Geschäftslogik
+- Integration-Tests für Datenbankinteraktionen
+- E2E-Tests für wichtige Benutzerflows
+- Manuelle Tests mit verschiedenen Rollen
 
+## 📄 Projektinformationen
+
+**Lovable Project URL**: https://lovable.dev/projects/8110383a-490b-41a2-a38b-aaf123d0b0d7
+
+### Technologien
 - Vite
 - TypeScript
 - React
 - shadcn-ui
 - Tailwind CSS
+- Supabase
 
-## How can I deploy this project?
+### Deployment
+Besuchen Sie [Lovable](https://lovable.dev/projects/8110383a-490b-41a2-a38b-aaf123d0b0d7) und klicken Sie auf Share → Publish.
 
-Simply open [Lovable](https://lovable.dev/projects/8110383a-490b-41a2-a38b-aaf123d0b0d7) and click on Share -> Publish.
+---
 
-## Can I connect a custom domain to my Lovable project?
-
-Yes, you can!
-
-To connect a domain, navigate to Project > Settings > Domains and click Connect Domain.
-
-Read more here: [Setting up a custom domain](https://docs.lovable.dev/tips-tricks/custom-domain#step-by-step-guide)
+*Dieses Projekt wurde mit Liebe für moderne Requirements Engineering Teams entwickelt.* 💙
