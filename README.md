@@ -197,7 +197,6 @@ src/
 
 ## 📄 Projektinformationen
 
-**Lovable Project URL**: https://lovable.dev/projects/8110383a-490b-41a2-a38b-aaf123d0b0d7
 
 ### Technologien
 - Vite
@@ -207,9 +206,4 @@ src/
 - Tailwind CSS
 - Supabase
 
-### Deployment
-Besuchen Sie [Lovable](https://lovable.dev/projects/8110383a-490b-41a2-a38b-aaf123d0b0d7) und klicken Sie auf Share → Publish.
 
----
-
-*Dieses Projekt wurde mit Liebe für moderne Requirements Engineering Teams entwickelt.* 💙
