@@ -8,6 +8,9 @@ import Index from "./pages/Index";
 import Auth from "./pages/Auth";
 import NotFound from "./pages/NotFound";
 import Requirements from "./pages/Requirements";
+import TestCases from "./pages/TestCases";
+import TestRuns from "./pages/TestRuns";
+import MyTests from "./pages/MyTests";
 import Layout from "@/components/Layout";
 
 const queryClient = new QueryClient();
@@ -50,6 +53,21 @@ const App = () => (
             <Route path="/requirements" element={
               <ProtectedRoute>
                 <Requirements />
+              </ProtectedRoute>
+            } />
+            <Route path="/test-cases" element={
+              <ProtectedRoute>
+                <TestCases />
+              </ProtectedRoute>
+            } />
+            <Route path="/test-runs" element={
+              <ProtectedRoute>
+                <TestRuns />
+              </ProtectedRoute>
+            } />
+            <Route path="/my-tests" element={
+              <ProtectedRoute>
+                <MyTests />
               </ProtectedRoute>
             } />
             {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
